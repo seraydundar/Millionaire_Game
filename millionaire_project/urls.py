@@ -6,8 +6,8 @@ from quiz.views import (
     home_view,
     start_game_view,
     random_question_view,
-    continue_game_view,   # Bu satırı ekleyin
-    withdraw_view,        # Bu satırı ekleyin
+    continue_game_view,   
+    withdraw_view,        
     custom_logout,
     register_view,
     add_question_view,
@@ -18,8 +18,8 @@ urlpatterns = [
     path('home/', home_view, name='home'),
     path('start-game/', start_game_view, name='start_game'),
     path('random-question/<int:level>/', random_question_view, name='random_question'),
-    path('continue-game/<int:next_level>/', continue_game_view, name='continue_game'),  # Ekleyin
-    path('withdraw/', withdraw_view, name='withdraw'),  # Ekleyin
+    path('continue-game/<int:next_level>/', continue_game_view, name='continue_game'),  
+    path('withdraw/', withdraw_view, name='withdraw'),  
     path('login/', auth_views.LoginView.as_view(template_name="quiz/login.html"), name='login'),
     path('logout/', custom_logout, name='logout'),
     path('register/', register_view, name='register'),
