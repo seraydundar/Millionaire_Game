@@ -1,0 +1,26 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block title %}
+  Oyuna Devam mı Çekil mi?
+{% endblock %}
+
+{% block content %}
+<div class="card text-center">
+  <div class="card-header bg-success text-white">
+    Doğru cevap verdiniz!
+  </div>
+  <div class="card-body">
+    <p>Mevcut oyundaki kazancınız: <strong>{{ current_game_prize }} TL</strong></p>
+    <p>Bir sonraki seviyeye geçmek için "Devam Et"e, yarışmadan çekilmek için "Çekil"e tıklayınız.</p>
+    <div class="d-flex justify-content-around">
+      <form method="get" action="{% url 'continue_game' next_level %}">
+        <button type="submit" class="btn btn-primary">Devam Et</button>
+      </form>
+      <form method="get" action="{% url 'withdraw' %}">
+        <button type="submit" class="btn btn-danger">Çekil</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Lotus Oyunları - Giriş</title>
+  <script>
+    // 5 saniye sonra /home/ adresine yönlendirme
+    setTimeout(function() {
+      window.location.href = "/home/";
+    }, 5000);
+  </script>
+  <style>
+    /* Tüm ekranı kapla, ortada logo göster */
+    html, body {
+      margin: 0; 
+      padding: 0;
+      height: 100%;
+      background: #333; /* Koyu zemin veya istediğiniz renk */
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+    }
+    .intro-logo {
+      width: 300px; /* Büyük boyut */
+    }
+  </style>
+</head>
+<body>
+  <!-- Merkezde büyük logo -->
+  <img 
+    src="{% static 'quiz/images/logo.png' %}" 
+    alt="Logo" 
+    class="intro-logo">
+</body>
+</html>

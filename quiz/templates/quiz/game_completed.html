@@ -1,0 +1,13 @@
+{% extends 'quiz/base.html' %}
+
+{% block title %}
+  Oyun Tamamlandı
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+  <h2>Oyun Tamamlandı!</h2>
+  <p>{{ message }}</p>
+  <p><a href="{% url 'home' %}" class="btn btn-success">Ana Sayfaya Dön</a></p>
+</div>
+{% endblock %}

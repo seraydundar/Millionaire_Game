@@ -1,0 +1,9 @@
+{% extends 'quiz/base.html' %}
+{% block content %}
+  <h2>Seviye {{ level }} Soru Doğru Cevap!</h2>
+  <p>Şu anki kazancınız: {{ current_prize }} TL</p>
+  <p>Devam etmek ister misiniz, yoksa çekilmek mi istersiniz?</p>
+
+  <a href="{% url 'random_question' level|add:1 %}" class="btn btn-success">Devam Et</a>
+  <a href="{% url 'home' %}" class="btn btn-warning">Çekil (Kazandığını al)</a>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block title %}
+  Ana Sayfa - Kim Milyoner Olmak İster
+{% endblock %}
+
+{% block left_sidebar %}
+  <!-- Home sayfasında sol sidebar'da sadece selamlaşma mevcut -->
+  <div class="p-3 heading-box">
+    <h5 class="mb-0">Hoşgeldin, {{ user.username }}</h5>
+    <p>{{ user.email }}</p>
+  </div>
+  <hr style="border-top: 2px solid #F0F0F0;">
+{% endblock %}
+
+{% block content %}
+<div class="text-center" style="padding: 50px;">
+  <!-- Üstte büyük Lotus logosu -->
+  <img src="{% static 'quiz/images/logo.png' %}" alt="Lotus Logo" style="width: 250px; margin-bottom: 20px;">
+  
+  <!-- başlık -->
+  <h1 style="color: #0b0b3d;">Lotus Oyunları</h1>
+  
+  <!-- Başlığın altında metin -->
+  <h2>Kim Milyoner Olmak İster'e Hoşgeldiniz</h2>
+  
+  <hr>
+  
+  {% if user.is_authenticated %}
+    <!-- Toplam ve güncel kazanç bilgileri, çizginin altında yer alıyor -->
+    <p>Toplam Kazancım: <strong>{{ user.profile.balance }}</strong> TL</p>
+    <p>Güncel Kazancım: <strong>{{ current_prize }}</strong> TL</p>
+    <p>
+      <a href="{% url 'start_game' %}" class="btn btn-success btn-lg">Oyuna Başla</a>
+    </p>
+  {% else %}
+    <p>Lütfen oyun oynamak için giriş yapınız.</p>
+  {% endif %}
+</div>
+
+
+{% endblock %}
