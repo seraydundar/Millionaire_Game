@@ -59,11 +59,6 @@ def random_question_view(request, level=1):
     POST geldiğinde formdan gelen question_id'ye göre aynı soruyu tekrar bulur,
     doğru/yanlış kontrolü yapar.
     
-    İstenen mantık:
-      - Doğru cevap verildiğinde current_game_prize, o sorunun ödülü (question.price) olarak ayarlanır.
-      - Yanlış cevap verildiğinde, kullanıcının o ana kadar elde ettiği current_game_prize ödül olarak alınır.
-      - Seviye 6'dan itibaren süre (timer) gösterilmez.
-      - Doğru cevap sonrası, seviye 1-2 için direkt sonraki soruya, seviye 3 ve üstü için "Devam Et / Çekil" karar sayfasına yönlendirme yapılır.
     """
     questions = Question.objects.filter(level=level)
     if not questions.exists():
@@ -72,7 +67,7 @@ def random_question_view(request, level=1):
             "level": level
         })
 
-    # Referans için ödül değerlerini içeren levels listesi (görsel amaçlı)
+    # Referans için ödül değerlerini içeren levels listesi 
     levels = [
         {'level': 1, 'reward': 100},
         {'level': 2, 'reward': 500},
@@ -107,12 +102,12 @@ def random_question_view(request, level=1):
         except (ValueError, TypeError):
             selected_answer_id = None
 
-        # current_game_prize: o ana kadar kazanılan ödül (her sorunun ödülü ayrı)
+        # current_game_prize: o ana kadar kazanılan ödül 
         current_game_prize = request.session.get('current_game_prize', 0)
 
         if selected_answer_id == question.correct_answer.id:
             messages.success(request, "Tebrikler, doğru cevap!")
-            # Sadece bu sorunun ödülünü alır (toplam eklemez)
+            # Sadece bu sorunun ödülünü alır 
             current_game_prize = question.price  
             request.session['current_game_prize'] = current_game_prize
 
@@ -127,7 +122,7 @@ def random_question_view(request, level=1):
                 user_profile = request.user.profile
                 user_profile.balance += current_game_prize
                 user_profile.save()
-                # Oyun tamamlandığında isteğe bağlı sıfırlayabilirsiniz.
+                
                 request.session['current_game_prize'] = 0
                 return render(request, "quiz/game_completed.html", {
                     "message": "Tüm seviyeleri başarıyla bitirdiniz!"
@@ -146,7 +141,7 @@ def random_question_view(request, level=1):
         else:
             messages.error(request, "Yanlış cevap! Elendiniz.")
             user_profile = request.user.profile
-            # Yanlış cevap verildiğinde, ödül olarak o ana kadar kazanılan current_game_prize kullanılsın.
+            # Yanlış cevap verildiğinde, ödül olarak o ana kadar kazanılan current_game_prize kullanılır.
             final_reward = request.session.get('current_game_prize', 0)
             user_profile.balance += final_reward
             user_profile.save()
